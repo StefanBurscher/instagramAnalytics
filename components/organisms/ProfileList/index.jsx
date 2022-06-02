@@ -1,8 +1,16 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import ProfileListItem from "../../atoms/ProfileListItem";
 
 export default function ProfileList({ items }) {
-  return <FlatList data={items} renderItem={ProfileListItem} />;
+  return (
+    <FlatList style={styles.list} data={items} renderItem={ProfileListItem} />
+  );
 }
+
+const styles = StyleSheet.create({
+  list: {
+    width: "100%",
+  },
+});

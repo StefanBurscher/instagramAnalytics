@@ -1,21 +1,33 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import Colors from "../../../constants/Colors";
 
 import { Text, View } from "../../Themed";
 
-export default function ListGroup({ allGroups = [], setActiveGroupIndex }) {
+export default function ListGroup({
+  allGroups = [],
+  setActiveGroupIndex,
+  activeGroupIndex,
+}) {
   return (
     <View style={styles.groups}>
-      {allGroups.map((group, index) => (
-        <TouchableOpacity
-          style={styles.group}
-          onPress={() => {
-            setActiveGroupIndex(index);
-          }}
-        >
-          <Text>{index + 1}</Text>
-        </TouchableOpacity>
-      ))}
+      {allGroups.map((group, index) => {
+        const style = [styles.group];
+        if (index === activeGroupIndex) {
+          style.push(styles.activeGroup);
+        }
+
+        return (
+          <TouchableOpacity
+            style={style}
+            onPress={() => {
+              setActiveGroupIndex(index);
+            }}
+          >
+            <Text>{index + 1}</Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 }
@@ -26,9 +38,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
-
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   group: {
     alignItems: "center",
@@ -38,7 +47,10 @@ const styles = StyleSheet.create({
     height: 40,
 
     borderWidth: 1,
-    borderColor: "blue",
+    borderColor: Colors.light.tint,
     marginRight: 10,
+  },
+  activeGroup: {
+    backgroundColor: Colors.light.tint,
   },
 });

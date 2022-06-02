@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 
 import { View } from "./Themed";
@@ -7,21 +7,15 @@ import AddProfile from "./organisms/AddProfile";
 import ListGroup from "./organisms/ListGroup";
 import ProfileList from "./organisms/ProfileList";
 import localstorage from "../utils/localstorage";
-
-const initialState = [
-  { id: 1, name: "Travel", items: [{ handle: "stefan.burscher" }] },
-  { id: 2, name: "Travel srbija", items: [] },
-];
+import MainContext from "../context/main-context";
 
 export default function EditScreenInfo() {
-  const [allGroups, setAllGroupsState] = useState(initialState);
-  const [activeGroupIndex, setActiveGroupIndex] = useState(0);
-
-  const setAllGroups = (groups) => {
-    localstorage.storeData("all-groups", groups);
-
-    setAllGroupsState(groups);
-  };
+  const {
+    groups: {
+      data: [allGroups, setAllGroupsState],
+      indexes: [activeGroupIndex, setActiveGroupIndex],
+    },
+  } = useContext(MainContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -70,30 +64,15 @@ export default function EditScreenInfo() {
   //   }
   // };
 
-  const addToGroup = (newItem) => {
-    setAllGroups(
-      allGroups.map((group, index) => {
-        if (index === activeGroupIndex) {
-          return {
-            ...group,
-            items: [...group.items, newItem],
-          };
-        }
-        return group;
-      })
-    );
-  };
-
   const selectedGroupItems = (allGroups || {})[activeGroupIndex]?.items;
 
   return (
     <View>
       <View style={styles.getStartedContainer}>
-        <AddProfile addToGroup={addToGroup} />
-
         <ListGroup
           allGroups={allGroups}
           setActiveGroupIndex={setActiveGroupIndex}
+          activeGroupIndex={activeGroupIndex}
         />
 
         <ProfileList items={selectedGroupItems} />
@@ -106,6 +85,6 @@ const styles = StyleSheet.create({
   // container
   getStartedContainer: {
     alignItems: "center",
-    marginHorizontal: 50,
+    marginHorizontal: 10,
   },
 });

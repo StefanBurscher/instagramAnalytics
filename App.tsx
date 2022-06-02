@@ -6,6 +6,8 @@ import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 
 import { ThemeProvider, Button, createTheme } from "@rneui/themed";
+import MainContext from "./context/main-context";
+import { useState } from "react";
 
 const theme = createTheme({
   Button: {
@@ -13,9 +15,24 @@ const theme = createTheme({
   },
 });
 
+const initialState = [
+  { id: 1, name: "Travel", items: [{ handle: "stefan.burscher" }] },
+  { id: 2, name: "Travel srbija", items: [] },
+];
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+
+  const [allGroups, setAllGroupsState] = useState(initialState);
+  const [activeGroupIndex, setActiveGroupIndex] = useState(0);
+
+  const contextValues = {
+    groups: {
+      data: [allGroups, setAllGroupsState],
+      indexes: [activeGroupIndex, setActiveGroupIndex],
+    },
+  };
 
   if (!isLoadingComplete) {
     return null;
@@ -23,7 +40,9 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <ThemeProvider theme={theme}>
-          <Navigation colorScheme={colorScheme} />
+          <MainContext.Provider value={contextValues}>
+            <Navigation colorScheme={colorScheme} />
+          </MainContext.Provider>
           <StatusBar />
         </ThemeProvider>
       </SafeAreaProvider>

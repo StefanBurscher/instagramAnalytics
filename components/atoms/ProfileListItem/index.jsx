@@ -3,6 +3,7 @@ import { Platform, StyleSheet, TouchableOpacity } from "react-native";
 import * as Linking from "expo-linking";
 
 import { Text, View } from "../../Themed";
+import Colors from "../../../constants/Colors";
 
 export default function ProfileListItem({ item }) {
   const openProfile = (profile) => {
@@ -30,9 +31,8 @@ export default function ProfileListItem({ item }) {
 const styles = StyleSheet.create({
   // profile item
   item: {
-    backgroundColor: "#f9c2cc",
+    backgroundColor: Colors.light.tint,
     padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginVertical: 10,
   },
 });
