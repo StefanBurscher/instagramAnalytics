@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as Linking from "expo-linking";
-import { Button, Input } from "@rneui/themed";
 
 import { Text, View } from "./Themed";
 
 import axios from "axios";
 import AddProfile from "./organisms/AddProfile";
+import ListGroup from "./organisms/ListGroup";
+import ProfileList from "./organisms/ProfileList";
 
 const lists = [
   { id: 1, name: "Travel", items: [{ handle: "stefan.burscher" }] },
@@ -97,33 +98,12 @@ export default function EditScreenInfo() {
       <View style={styles.getStartedContainer}>
         <AddProfile addToGroup={addToGroup} />
 
-        <View style={styles.groups}>
-          {allGroups.map((group, index) => (
-            <TouchableOpacity
-              style={styles.group}
-              onPress={() => {
-                setActiveGroupIndex(index);
-              }}
-            >
-              <Text>{group.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        <FlatList
-          data={allGroups[activeGroupIndex].items}
-          renderItem={({ item }) => (
-            <View style={styles.item}>
-              <TouchableOpacity
-                onPress={() => {
-                  openProfile(item);
-                }}
-              >
-                <Text>{item.handle}</Text>
-              </TouchableOpacity>
-            </View>
-          )}
+        <ListGroup
+          allGroups={allGroups}
+          setActiveGroupIndex={setActiveGroupIndex}
         />
+
+        <ProfileList items={allGroups[activeGroupIndex].items} />
       </View>
     </View>
   );
@@ -134,25 +114,6 @@ const styles = StyleSheet.create({
   getStartedContainer: {
     alignItems: "center",
     marginHorizontal: 50,
-  },
-
-  // Add profile form
-  addProfileView: {
-    borderWidth: 1,
-    borderColor: "#000",
-    marginBottom: 10,
-  },
-  input: {},
-
-  // list groups
-  groups: {
-    flexDirection: "row",
-  },
-  group: {
-    width: 100,
-    height: 100,
-    borderWidth: 1,
-    borderColor: "red",
   },
 
   // profile item
