@@ -4,11 +4,6 @@ import { Button, Input } from "@rneui/themed";
 
 import { View } from "../../Themed";
 
-const lists = [
-  { id: 1, name: "Travel", items: [{ handle: "stefan.burscher" }] },
-  { id: 2, name: "Travel srbija", items: [] },
-];
-
 export default function AddProfile({ addToGroup }) {
   const [inputValue, setInputValue] = useState("");
 
