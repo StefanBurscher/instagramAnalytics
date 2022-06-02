@@ -1,16 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
-  Button,
+  // Button,
   FlatList,
+  Platform,
   StyleSheet,
-  TextInput,
+  // TextInput,
   TouchableOpacity,
 } from "react-native";
 import * as Linking from "expo-linking";
+import { Button, Input } from "@rneui/themed";
 
 import { Text, View } from "./Themed";
 
 import axios from "axios";
+import AddProfile from "./organisms/AddProfile";
 
 const lists = [
   { id: 1, name: "Travel", items: [{ handle: "stefan.burscher" }] },
@@ -28,10 +31,12 @@ export default function EditScreenInfo() {
     const splittedValue = inputValue.split("instagram.com/");
     const newValue = splittedValue.length > 1 ? splittedValue[1] : inputValue;
 
-    const handleValue = newValue.split("?")[0] 
-    getPhoto(handleValue)
-    // newList[activeGroupIndex].items.push({ handle: handleValue});
-    // setInputValue("");
+    const handleValue = newValue.split("?")[0];
+
+    // getPhoto(handleValue);
+
+    newList[activeGroupIndex].items.push({ handle: handleValue });
+    setInputValue("");
   };
 
   const getPhoto = (a) => {
@@ -45,7 +50,10 @@ export default function EditScreenInfo() {
 
         // getting the url
         var photoURL = data["graphql"]["user"]["profile_pic_url_hd"];
-        console.log("🚀 ~ file: EditScreenInfo.tsx ~ line 46 ~ EditScreenInfo ~ photoURL", photoURL)
+        console.log(
+          "🚀 ~ file: EditScreenInfo.tsx ~ line 46 ~ EditScreenInfo ~ photoURL",
+          photoURL
+        );
 
         // update img element
         // $("#photoReturn").attr("src", photoURL);
@@ -60,16 +68,34 @@ export default function EditScreenInfo() {
     }
   };
 
+  const openProfile = (item) => {
+    const url = `https://instagram.com/${item.handle}`;
+
+    if (Platform.OS == "web") {
+      window.open(url, "_blank");
+    } else {
+      Linking.openURL(url);
+    }
+  };
+
+  const addToGroup = (newItem) => {
+    setAllGroups(
+      allGroups.map((group, index) => {
+        if (index === activeGroupIndex) {
+          return {
+            ...group,
+            items: [...group.items, newItem],
+          };
+        }
+        return group;
+      })
+    );
+  };
+
   return (
     <View>
       <View style={styles.getStartedContainer}>
-        <TextInput
-          style={styles.input}
-          value={inputValue}
-          onChangeText={setInputValue}
-        />
-
-        <Button title="Add" onPress={addToList} />
+        <AddProfile addToGroup={addToGroup} />
 
         <View style={styles.groups}>
           {allGroups.map((group, index) => (
@@ -84,17 +110,13 @@ export default function EditScreenInfo() {
           ))}
         </View>
 
-        {console.log(
-          "🚀 ~ file: EditScreenInfo.tsx ~ line 46 ~ EditScreenInfo ~ allGroups[activeGroupIndex].items",
-          allGroups[activeGroupIndex].items
-        )}
         <FlatList
           data={allGroups[activeGroupIndex].items}
           renderItem={({ item }) => (
             <View style={styles.item}>
               <TouchableOpacity
                 onPress={() => {
-                  Linking.openURL(`https://instagram.com/${item.handle}`);
+                  openProfile(item);
                 }}
               >
                 <Text>{item.handle}</Text>
@@ -102,60 +124,27 @@ export default function EditScreenInfo() {
             </View>
           )}
         />
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
-        >
-          Open up the code for this screen:
-        </Text>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  // container
   getStartedContainer: {
     alignItems: "center",
     marginHorizontal: 50,
   },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightContainer: {
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    lineHeight: 24,
-    textAlign: "center",
-  },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: "center",
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: "center",
-  },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  input: {
-    height: 40,
-    margin: 12,
+
+  // Add profile form
+  addProfileView: {
     borderWidth: 1,
-    borderColor: "red",
-    padding: 10,
-    width: "100%",
+    borderColor: "#000",
+    marginBottom: 10,
   },
+  input: {},
+
+  // list groups
   groups: {
     flexDirection: "row",
   },
@@ -164,5 +153,13 @@ const styles = StyleSheet.create({
     height: 100,
     borderWidth: 1,
     borderColor: "red",
+  },
+
+  // profile item
+  item: {
+    backgroundColor: "#f9c2cc",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
 });
