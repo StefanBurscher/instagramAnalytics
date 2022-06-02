@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 
 import { View } from "./Themed";
@@ -6,15 +6,40 @@ import { View } from "./Themed";
 import AddProfile from "./organisms/AddProfile";
 import ListGroup from "./organisms/ListGroup";
 import ProfileList from "./organisms/ProfileList";
+import localstorage from "../utils/localstorage";
 
-const lists = [
+const initialState = [
   { id: 1, name: "Travel", items: [{ handle: "stefan.burscher" }] },
   { id: 2, name: "Travel srbija", items: [] },
 ];
 
 export default function EditScreenInfo() {
-  const [allGroups, setAllGroups] = useState(lists);
+  const [allGroups, setAllGroupsState] = useState(initialState);
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
+
+  const setAllGroups = (groups) => {
+    localstorage.storeData("all-groups", groups);
+
+    setAllGroupsState(groups);
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      let initialGroups = await localstorage.getData("all-groups");
+
+      const hasLocalstorageValue =
+        !initialGroups ||
+        (initialGroups && initialGroups && initialGroups.lenght === 0);
+
+      if (hasLocalstorageValue) {
+        initialGroups = initialState;
+      }
+
+      setAllGroupsState(initialGroups);
+    };
+
+    getData();
+  }, []);
 
   // const getPhoto = (a) => {
   //   // validation for instagram usernames
@@ -59,6 +84,8 @@ export default function EditScreenInfo() {
     );
   };
 
+  const selectedGroupItems = (allGroups || {})[activeGroupIndex]?.items;
+
   return (
     <View>
       <View style={styles.getStartedContainer}>
@@ -69,7 +96,7 @@ export default function EditScreenInfo() {
           setActiveGroupIndex={setActiveGroupIndex}
         />
 
-        <ProfileList items={allGroups[activeGroupIndex].items} />
+        <ProfileList items={selectedGroupItems} />
       </View>
     </View>
   );

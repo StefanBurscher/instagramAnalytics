@@ -25,6 +25,8 @@ export default function AddProfile({ addToGroup }) {
         style={styles.input}
         value={inputValue}
         onChangeText={setInputValue}
+        placeholder="Enter Instagram handle or profile URL"
+        inputStyle={{ color: "blue" }}
       />
 
       <Button raised title="Add" onPress={addToList} />
@@ -38,6 +40,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#000",
     marginBottom: 10,
+    width: "100%",
   },
   input: {},
 });
