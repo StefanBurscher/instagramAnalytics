@@ -8,6 +8,7 @@ import Navigation from "./navigation";
 import { ThemeProvider, Button, createTheme } from "@rneui/themed";
 import MainContext from "./context/main-context";
 import { useState } from "react";
+import initialState from "./constants/initialState";
 
 const theme = createTheme({
   Button: {
@@ -15,10 +16,7 @@ const theme = createTheme({
   },
 });
 
-const initialState = [
-  { id: 1, name: "Travel", items: [{ handle: "stefan.burscher" }] },
-  { id: 2, name: "Travel srbija", items: [] },
-];
+
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

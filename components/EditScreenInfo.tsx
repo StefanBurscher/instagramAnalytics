@@ -8,6 +8,7 @@ import ListGroup from "./organisms/ListGroup";
 import ProfileList from "./organisms/ProfileList";
 import localstorage from "../utils/localstorage";
 import MainContext from "../context/main-context";
+import initialState from "../constants/initialState";
 
 export default function EditScreenInfo() {
   const {
@@ -35,34 +36,6 @@ export default function EditScreenInfo() {
     getData();
   }, []);
 
-  // const getPhoto = (a) => {
-  //   // validation for instagram usernames
-  //   var regex = new RegExp(/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/);
-  //   var validation = regex.test(a);
-
-  //   if (validation) {
-  //     try {
-  //       const data = axios.get("https://www.instagram.com/" + a + "/?__a=1");
-
-  //       // getting the url
-  //       var photoURL = data["graphql"]["user"]["profile_pic_url_hd"];
-  //       console.log(
-  //         "🚀 ~ file: EditScreenInfo.tsx ~ line 46 ~ EditScreenInfo ~ photoURL",
-  //         photoURL
-  //       );
-
-  //       // update img element
-  //       // $("#photoReturn").attr("src", photoURL);
-  //       // })
-  //       // .fail(function () {
-  //       //   // code for 404 error
-  //       //   alert("Username was not found!");
-  //       // });
-  //     } catch (error) {}
-  //   } else {
-  //     alert("The username is invalid!");
-  //   }
-  // };
 
   const selectedGroupItems = (allGroups || {})[activeGroupIndex]?.items;
 
