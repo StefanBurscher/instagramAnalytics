@@ -9,6 +9,7 @@ import { ThemeProvider, Button, createTheme } from "@rneui/themed";
 import MainContext from "./context/main-context";
 import { useState } from "react";
 import initialState from "./constants/initialState";
+import localstorage from "./utils/localstorage";
 
 const theme = createTheme({
   Button: {
@@ -25,9 +26,15 @@ export default function App() {
   const [allGroups, setAllGroupsState] = useState(initialState);
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
 
+  const setAllGroups = (groups) => {
+    localstorage.storeData("all-groups", groups);
+
+    setAllGroupsState(groups);
+  };
+
   const contextValues = {
     groups: {
-      data: [allGroups, setAllGroupsState],
+      data: [allGroups, setAllGroups],
       indexes: [activeGroupIndex, setActiveGroupIndex],
     },
   };

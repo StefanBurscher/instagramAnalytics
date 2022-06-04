@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Text, View } from "../../Themed";
 
-export default function RegularScreen({ navigation, title, children }) {
+export default function RegularLayout({ navigation, title, children }) {
   return (
     <View style={styles.container}>
       {!!title && (
@@ -24,8 +24,8 @@ export default function RegularScreen({ navigation, title, children }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
+    paddingHorizontal: 10,
+    paddingTop: 10,
   },
   title: {
     fontSize: 20,

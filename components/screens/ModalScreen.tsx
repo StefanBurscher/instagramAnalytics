@@ -1,25 +1,21 @@
 import { StatusBar } from "expo-status-bar";
+import React from "react";
 import { useContext } from "react";
 import { Platform, StyleSheet } from "react-native";
 import MainContext from "../../context/main-context";
 import localstorage from "../../utils/localstorage";
+import RegularLayout from "../layouts/RegularLayout";
 
 import AddProfile from "../organisms/AddProfile";
 import { Text, View } from "../Themed";
 
-export default function ModalScreen() {
+export default function ModalScreen({ navigation }) {
   const {
     groups: {
-      data: [allGroups, setAllGroupsState],
+      data: [allGroups, setAllGroups],
       indexes: [activeGroupIndex, setActiveGroupIndex],
     },
   } = useContext(MainContext);
-
-  const setAllGroups = (groups) => {
-    localstorage.storeData("all-groups", groups);
-
-    setAllGroupsState(groups);
-  };
 
   const addToGroup = (newItem) => {
     setAllGroups(
@@ -33,37 +29,22 @@ export default function ModalScreen() {
         return group;
       })
     );
+
+    navigation.goBack();
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <AddProfile addToGroup={addToGroup} />
+    <RegularLayout>
+      <View style={styles.container}>
+        <AddProfile addToGroup={addToGroup} />
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
-    </View>
+        {/* Use a light status bar on iOS to account for the black space above the modal */}
+        <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
+      </View>
+    </RegularLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
+  container: {},
 });

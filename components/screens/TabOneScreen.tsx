@@ -3,16 +3,16 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "../EditScreenInfo";
 import { Text, View } from "../Themed";
 import { RootTabScreenProps } from "../../types";
-import RegularScreen from "../layouts/RegularLayout";
+import RegularLayout from "../layouts/RegularLayout";
 import React from "react";
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
   return (
-    <RegularScreen>
+    <RegularLayout>
       <EditScreenInfo />
-    </RegularScreen>
+    </RegularLayout>
   );
 }
 

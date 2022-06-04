@@ -9,11 +9,12 @@ import ProfileList from "./organisms/ProfileList";
 import localstorage from "../utils/localstorage";
 import MainContext from "../context/main-context";
 import initialState from "../constants/initialState";
+import RegularLayout from "./layouts/RegularLayout";
 
 export default function EditScreenInfo() {
   const {
     groups: {
-      data: [allGroups, setAllGroupsState],
+      data: [allGroups, setAllGroups],
       indexes: [activeGroupIndex, setActiveGroupIndex],
     },
   } = useContext(MainContext);
@@ -30,7 +31,7 @@ export default function EditScreenInfo() {
         initialGroups = initialState;
       }
 
-      setAllGroupsState(initialGroups);
+      setAllGroups(initialGroups);
     };
 
     getData();
@@ -40,8 +41,8 @@ export default function EditScreenInfo() {
   const selectedGroupItems = (allGroups || {})[activeGroupIndex]?.items;
 
   return (
-    <View>
-      <View style={styles.getStartedContainer}>
+    <RegularLayout>
+      <View style={styles.container}>
         <ListGroup
           allGroups={allGroups}
           setActiveGroupIndex={setActiveGroupIndex}
@@ -50,14 +51,11 @@ export default function EditScreenInfo() {
 
         <ProfileList items={selectedGroupItems} />
       </View>
-    </View>
+    </RegularLayout>
   );
 }
 
 const styles = StyleSheet.create({
   // container
-  getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 10,
-  },
+  container: {},
 });
