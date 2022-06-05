@@ -1,5 +1,5 @@
 const initialState = [
-    { id: 1, name: "Travel", items: [{ handle: "stefan.burscher" }] },
+    { id: 1, name: "Travel", items: [{ username: "stefan.burscher" }] },
     { id: 2, name: "Travel srbija", items: [] },
   ];
     

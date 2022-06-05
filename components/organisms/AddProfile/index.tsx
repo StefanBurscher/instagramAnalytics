@@ -1,39 +1,46 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Input } from "@rneui/themed";
+import { WebView } from "react-native-webview";
 
-import { View } from "../../Themed";
+import { Text, View } from "../../Themed";
 import axios from "axios";
+import { InstagramUser } from "../../../interfaces/instagramUser";
 
 export default function AddProfile({ addToGroup }) {
   const [inputValue, setInputValue] = useState("");
+  const [instagramHtml, setInstagramHtml] = useState();
+  const [instagramURL, setinstagramURL] = useState();
 
-  const getPhoto = async (handle) => {
+  const getUserData = async (username): Promise<InstagramUser> => {
+    const searchURL = `https://www.instagram.com/web/search/topsearch/?context=user&count=0&query=${username}`;
+    const res = await axios.get(searchURL);
 
-    const newData = new FormData();
-
-    // newData.append("link", `https://www.instagram.com/${handle}`)
-    // newData.append("downloader", "avatar")
-
-    newData.append("instagram_url", handle)
-    newData.append("type", "profile")
-    newData.append("resource", "save")
-
-    const res = await axios.post("https://www.save-insta.com/process", newData)
-    // console.log("🚀 ~ file: index.tsx ~ line 17 ~ getPhoto ~ res", res)
-
+    if (res.headers["content-type"].includes("text/html")) {
+      console.log("Trazi auth");
+      // setInstagramHtml(res.data);
+      setinstagramURL(searchURL);
+    } else {
+      const user: InstagramUser = res.data?.users[0]?.user;
+      if (user) {
+        console.log("Uspeo!".user);
+        return user;
+      } else {
+        console.log("Uspeo! Nema korisnika");
+      }
+    }
   };
 
-  const addToList = () => {
+  const addToList = async () => {
     const splittedValue = inputValue.split("instagram.com/");
     const newValue = splittedValue.length > 1 ? splittedValue[1] : inputValue;
 
-    const handleValue = newValue.split("?")[0];
+    const usernameValue = newValue.split("?")[0];
 
-    // getPhoto(handleValue);
+    const userData = await getUserData(usernameValue);
 
     setInputValue("");
-    addToGroup({ handle: handleValue });
+    addToGroup({ ...userData });
   };
 
   return (
@@ -42,11 +49,35 @@ export default function AddProfile({ addToGroup }) {
         style={styles.input}
         value={inputValue}
         onChangeText={setInputValue}
-        placeholder="Enter Instagram handle or profile URL"
+        placeholder="Enter Instagram username or profile URL"
         inputStyle={{ color: "blue" }}
       />
 
       <Button raised title="Add" onPress={addToList} />
+
+      <View
+        style={{
+          backgroundColor: "yellow",
+          height: 300,
+          width: 500,
+        }}
+      >
+        {instagramHtml && (
+          <WebView
+            style={styles.webView}
+            originWhitelist={["*"]}
+            source={{ html: instagramHtml }}
+          />
+        )}
+
+        {instagramURL && (
+          <WebView
+            style={styles.webView}
+            originWhitelist={["*"]}
+            source={{ uri: instagramURL }}
+          />
+        )}
+      </View>
     </View>
   );
 }
@@ -58,6 +89,13 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     marginBottom: 10,
     width: "100%",
+    // flex: 1,
   },
   input: {},
+  webView: {
+    flex: 1,
+    backgroundColor: "red",
+    width: "100%",
+    height: 500,
+  },
 });

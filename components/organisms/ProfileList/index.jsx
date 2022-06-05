@@ -14,6 +14,7 @@ export default function ProfileList({ items }) {
 
   return (
     <FlatList
+      keyExtractor={(_, index) => index}
       style={styles.list}
       data={items}
       renderItem={(props) =>

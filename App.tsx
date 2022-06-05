@@ -24,10 +24,11 @@ export default function App() {
   const colorScheme = useColorScheme();
 
   const [allGroups, setAllGroupsState] = useState(initialState);
-  const [activeGroupIndex, setActiveGroupIndex] = useState(0);
+  const [activeGroupIndex, setActiveGroupIndex] = useState(1);
 
   const setAllGroups = (groups) => {
     localstorage.storeData("all-groups", groups);
+    console.log("🚀 ~ file: App.tsx ~ line 31 ~ setAllGroups ~ groups", groups)
 
     setAllGroupsState(groups);
   };
