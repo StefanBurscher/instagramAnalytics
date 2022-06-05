@@ -14,19 +14,10 @@ export default function ProfileListItem({
   activeGroupIndex,
   setActiveGroupIndex,
 }) {
-  // const openProfile = () => {
-  //   const url = `https://instagram.com/${item.username}`;
-  //   openURL(url);
-  // };
-
   const openProfile = () => {
-    const url = `https://instagram.com/${item.username}`;
-
-    if (Platform.OS == "web") {
-      window.open(url, "_blank");
-    } else {
-      Linking.openURL(url);
-    }
+    const url = `https://www.instagram.com/${item.username}`;
+    // const url = `instagram://user?username=${item.username}`;
+    openURL(url);
   };
 
   const deleteProfile = () => {

@@ -5,6 +5,10 @@ export const openURL = (url) => {
   if (Platform.OS == "web") {
     window.open(url, "_blank");
   } else {
-    Linking.openURL(url);
+    if (Linking.canOpenURL(url)) {
+      Linking.openURL(url);
+    } else {
+      alert("AAAAA")
+    }
   }
 };
