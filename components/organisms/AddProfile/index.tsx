@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button } from "@rneui/themed";
-import { WebView } from "react-native-webview";
+// import { WebView } from "react-native-webview";
 
 import { Text, View } from "../../Themed";
 import axios from "axios";
@@ -61,7 +61,7 @@ export default function AddProfile({ addToGroup }) {
           width: 500,
         }}
       >
-        {instagramHtml && (
+        {/* {instagramHtml && (
           <WebView
             style={styles.webView}
             originWhitelist={["*"]}
@@ -75,7 +75,7 @@ export default function AddProfile({ addToGroup }) {
             originWhitelist={["*"]}
             source={{ uri: instagramURL }}
           />
-        )}
+        )} */}
       </View>
     </View>
   );

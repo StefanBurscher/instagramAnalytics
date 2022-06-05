@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, Linking, StyleSheet, TouchableOpacity } from "react-native";
 
 import { Text, View } from "../../Themed";
 import Colors from "../../../constants/Colors";
@@ -14,9 +14,19 @@ export default function ProfileListItem({
   activeGroupIndex,
   setActiveGroupIndex,
 }) {
+  // const openProfile = () => {
+  //   const url = `https://instagram.com/${item.username}`;
+  //   openURL(url);
+  // };
+
   const openProfile = () => {
-    const url = `instagram://user?username=${item.username}`;
-    openURL(url);
+    const url = `https://instagram.com/${item.username}`;
+
+    if (Platform.OS == "web") {
+      window.open(url, "_blank");
+    } else {
+      Linking.openURL(url);
+    }
   };
 
   const deleteProfile = () => {
