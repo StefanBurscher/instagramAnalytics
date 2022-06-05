@@ -20,7 +20,20 @@ const getData = async (key) => {
   }
 };
 
+const setContextData = (key, callback, value) => {
+  console.log(
+    "🚀 ~ file: localstorage.js ~ line 24 ~ setContextData ~ key, callback, value",
+    key,
+    callback,
+    value
+  );
+  storeData(key, value);
+
+  callback(value);
+};
+
 export default {
   storeData,
   getData,
+  setContextData,
 };

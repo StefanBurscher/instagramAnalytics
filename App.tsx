@@ -5,11 +5,9 @@ import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 
-import { ThemeProvider, Button, createTheme } from "@rneui/themed";
+import { ThemeProvider, createTheme } from "@rneui/themed";
 import MainContext from "./context/main-context";
-import { useState } from "react";
-import initialState from "./constants/initialState";
-import localstorage from "./utils/localstorage";
+import useContextApi from "./hooks/useContextApi";
 
 const theme = createTheme({
   Button: {
@@ -17,28 +15,11 @@ const theme = createTheme({
   },
 });
 
-
-
 export default function App() {
   const isLoadingComplete = useCachedResources();
+  const contextValues = useContextApi();
+
   const colorScheme = useColorScheme();
-
-  const [allGroups, setAllGroupsState] = useState(initialState);
-  const [activeGroupIndex, setActiveGroupIndex] = useState(1);
-
-  const setAllGroups = (groups) => {
-    localstorage.storeData("all-groups", groups);
-    console.log("🚀 ~ file: App.tsx ~ line 31 ~ setAllGroups ~ groups", groups)
-
-    setAllGroupsState(groups);
-  };
-
-  const contextValues = {
-    groups: {
-      data: [allGroups, setAllGroups],
-      indexes: [activeGroupIndex, setActiveGroupIndex],
-    },
-  };
 
   if (!isLoadingComplete) {
     return null;

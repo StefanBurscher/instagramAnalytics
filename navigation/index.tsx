@@ -14,8 +14,8 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../components/screens/ModalScreen';
 import NotFoundScreen from '../components/screens/NotFoundScreen';
-import TabOneScreen from '../components/screens/TabOneScreen';
-import TabTwoScreen from '../components/screens/TabTwoScreen';
+import CompetitorsTabScreen from '../components/screens/CompetitorsTabScreen';
+import CommentsTabScreen from '../components/screens/CommentsTabScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -58,14 +58,14 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="CommentsTab"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+        name="CompetitorsTab"
+        component={CompetitorsTabScreen}
+        options={({ navigation }: RootTabScreenProps<'CompetitorsTab'>) => ({
           title: 'Influencers list',
           tabBarIcon: ({ color }) => <Entypo name="list" color={color} size={24} />,
           headerRight: () => (
@@ -85,11 +85,19 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="CommentsTab"
+        component={CommentsTabScreen}
         options={{
-          title: '?',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Comments',
+          tabBarIcon: ({ color }) => <TabBarIcon name="comment" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="SettingsTab"
+        component={CommentsTabScreen}
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
         }}
       />
     </BottomTab.Navigator>

@@ -1,17 +1,17 @@
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "../EditScreenInfo";
+import InfluencersList from "../organisms/InfluencersList";
 import { Text, View } from "../Themed";
 import { RootTabScreenProps } from "../../types";
 import RegularLayout from "../layouts/RegularLayout";
 import React from "react";
 
-export default function TabOneScreen({
+export default function CompetitorsTabScreen({
   navigation,
-}: RootTabScreenProps<"TabOne">) {
+}: RootTabScreenProps<"CompetitorsTab">) {
   return (
     <RegularLayout>
-      <EditScreenInfo />
+      <InfluencersList />
     </RegularLayout>
   );
 }

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { Button, Input } from "@rneui/themed";
+import { Button } from "@rneui/themed";
 import { WebView } from "react-native-webview";
 
 import { Text, View } from "../../Themed";
 import axios from "axios";
 import { InstagramUser } from "../../../interfaces/instagramUser";
+import Input from "../../atoms/Input";
 
 export default function AddProfile({ addToGroup }) {
   const [inputValue, setInputValue] = useState("");
@@ -46,11 +47,9 @@ export default function AddProfile({ addToGroup }) {
   return (
     <View style={styles.addProfileView}>
       <Input
-        style={styles.input}
         value={inputValue}
         onChangeText={setInputValue}
         placeholder="Enter Instagram username or profile URL"
-        inputStyle={{ color: "blue" }}
       />
 
       <Button raised title="Add" onPress={addToList} />
@@ -89,7 +88,6 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     marginBottom: 10,
     width: "100%",
-    // flex: 1,
   },
   input: {},
   webView: {

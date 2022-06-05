@@ -1,42 +1,21 @@
-import React, { useContext, useEffect } from "react";
-import { Alert, StyleSheet } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet } from "react-native";
 // import * as Facebook from 'expo-facebook';
 
-import { View } from "./Themed";
+import { View } from "../../Themed";
 
-import ListGroup from "./organisms/ListGroup";
-import ProfileList from "./organisms/ProfileList";
-import localstorage from "../utils/localstorage";
-import MainContext from "../context/main-context";
-import initialState from "../constants/initialState";
-import RegularLayout from "./layouts/RegularLayout";
+import ListGroup from "../ListGroup";
+import ProfileList from "../ProfileList";
+import MainContext from "../../../context/main-context";
 // import { Button } from "@rneui/themed";
 
-export default function EditScreenInfo() {
+export default function InfluencersList() {
   const {
     groups: {
       data: [allGroups, setAllGroups],
       indexes: [activeGroupIndex, setActiveGroupIndex],
     },
   } = useContext(MainContext);
-
-  useEffect(() => {
-    const getData = async () => {
-      let initialGroups = await localstorage.getData("all-groups");
-
-      const hasLocalstorageValue =
-        !initialGroups ||
-        (initialGroups && initialGroups && initialGroups.lenght === 0);
-
-      if (hasLocalstorageValue) {
-        initialGroups = initialState;
-      }
-
-      setAllGroups(initialGroups);
-    };
-
-    getData();
-  }, []);
 
   const selectedGroupItems = (allGroups || {})[activeGroupIndex]?.items;
 
@@ -56,10 +35,10 @@ export default function EditScreenInfo() {
 
   //       // Get the user's name using Facebook's Graph API
   //       // const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-  //       // console.log("🚀 ~ file: EditScreenInfo.tsx ~ line 57 ~ logIn ~ response", (await response.json()), userId)
+  //       // console.log("🚀 ~ file: InfluencersList.tsx ~ line 57 ~ logIn ~ response", (await response.json()), userId)
 
   //       // const response1 = await fetch(`https://graph.facebook.com/v3.2/${userId}?fields=business_discovery.username(bluebottle){followers_count,media_count}&access_token=${token}`);
-  //       // console.log("🚀 ~ file: EditScreenInfo.tsx ~ line 57 ~ logIn ~ response", (await response1.json()))
+  //       // console.log("🚀 ~ file: InfluencersList.tsx ~ line 57 ~ logIn ~ response", (await response1.json()))
 
   //       // Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
 
@@ -75,18 +54,16 @@ export default function EditScreenInfo() {
   // const [status, requestPermission] = Facebook.usePermissions();
 
   return (
-    <RegularLayout>
-      <View style={styles.container}>
-        {/* <Button onPress={logIn} title="Asd" /> */}
-        <ListGroup
-          allGroups={allGroups}
-          setActiveGroupIndex={setActiveGroupIndex}
-          activeGroupIndex={activeGroupIndex}
-        />
+    <View style={styles.container}>
+      {/* <Button onPress={logIn} title="Asd" /> */}
+      <ListGroup
+        allGroups={allGroups}
+        setActiveGroupIndex={setActiveGroupIndex}
+        activeGroupIndex={activeGroupIndex}
+      />
 
-        <ProfileList items={selectedGroupItems} />
-      </View>
-    </RegularLayout>
+      <ProfileList items={selectedGroupItems} />
+    </View>
   );
 }
 

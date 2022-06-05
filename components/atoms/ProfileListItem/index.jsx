@@ -6,6 +6,7 @@ import { Text, View } from "../../Themed";
 import Colors from "../../../constants/Colors";
 import MainContext from "../../../context/main-context";
 import { InstagramUser } from "../../../interfaces/instagramUser";
+import { openURL } from "../../../utils/links";
 
 export default function ProfileListItem({
   item,
@@ -17,12 +18,7 @@ export default function ProfileListItem({
 }) {
   const openProfile = () => {
     const url = `https://instagram.com/${item.username}`;
-
-    if (Platform.OS == "web") {
-      window.open(url, "_blank");
-    } else {
-      Linking.openURL(url);
-    }
+    openURL(url);
   };
 
   const deleteProfile = () => {

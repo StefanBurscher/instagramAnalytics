@@ -1,10 +1,7 @@
 import React from "react";
 
-const MainContext = React.createContext({
-  groups: {
-    data: [],
-    indexes: [],
-  },
-});
+import { initialContextState } from "../constants/initialState";
+
+const MainContext = React.createContext(initialContextState);
 
 export default MainContext;

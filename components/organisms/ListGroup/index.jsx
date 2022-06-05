@@ -19,6 +19,7 @@ export default function ListGroup({
 
         return (
           <TouchableOpacity
+            key={group.name}
             style={style}
             onPress={() => {
               setActiveGroupIndex(index);
