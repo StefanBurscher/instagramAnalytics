@@ -38,6 +38,25 @@ export default function HashtagsList() {
     setHashtagCategories(newCategories);
   };
 
+  const deleteHashtag = (hashtagIndex) => {
+    setInputValue("");
+
+    const newCategories = hashtagCategories.map((state, index) => {
+      if (index === selectedCategoryIndex) {
+        return {
+          ...state,
+          items: state.items.filter(
+            (_, itemIndex) => itemIndex !== hashtagIndex
+          ),
+        };
+      }
+
+      return state;
+    });
+
+    setHashtagCategories(newCategories);
+  };
+
   return (
     <View>
       <Text>Hastags</Text>
@@ -46,7 +65,7 @@ export default function HashtagsList() {
           keyExtractor={(_, index) => index}
           // style={styles.list}
           data={hashtagCategories[selectedCategoryIndex].items}
-          renderItem={({ item: { hashtag } }) => (
+          renderItem={({ item: { hashtag }, index }) => (
             <View
               style={{
                 flexDirection: "row",
@@ -79,7 +98,7 @@ export default function HashtagsList() {
                   padding: 10,
                 }}
                 onPress={() => {
-                  openHashtag(hashtag);
+                  deleteHashtag(index);
                 }}
               >
                 <Text>X</Text>
