@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import Colors from "../../../constants/Colors";
 import { View } from "../../Themed";
 
-export default function Input({ value, onChangeText, placeholder }) {
+export default function Input({ value, onChangeText, placeholder, ...otherProps }) {
   return (
     <View style={styles.inputContainer}>
       <ThemendInput
@@ -13,6 +13,7 @@ export default function Input({ value, onChangeText, placeholder }) {
         onChangeText={onChangeText}
         placeholder={placeholder}
         inputStyle={{ color: Colors.light.tint }}
+        {...otherProps}
       />
     </View>
   );

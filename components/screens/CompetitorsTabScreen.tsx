@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 
 import InfluencersList from "../organisms/InfluencersList";
-import { Text, View } from "../Themed";
 import { RootTabScreenProps } from "../../types";
 import RegularLayout from "../layouts/RegularLayout";
 import React from "react";

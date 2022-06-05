@@ -6,6 +6,7 @@ import { openURL } from "../../../utils/links";
 import MainContext from "../../../context/main-context";
 import Input from "../../atoms/Input";
 import { Button } from "@rneui/themed";
+import Colors from "../../../constants/Colors";
 
 export default function HashtagsList() {
   const [inputValue, setInputValue] = useState("");
@@ -18,9 +19,8 @@ export default function HashtagsList() {
   } = useContext(MainContext);
 
   const openHashtag = (hashtag) => {
-    
     // const url = `instagram://explore/tags?tag=${hashtag}`;
-    const url = `https://www.instagram.com/explore/tags/${hashtag}`
+    const url = `https://www.instagram.com/explore/tags/${hashtag}`;
     openURL(url);
   };
 
@@ -86,7 +86,7 @@ export default function HashtagsList() {
               >
                 <Text
                   style={{
-                    backgroundColor: "gray",
+                    backgroundColor: Colors.light.tint,
                     padding: 10,
                     marginRight: 10,
                     flex: 1,
@@ -104,7 +104,7 @@ export default function HashtagsList() {
                   deleteHashtag(index);
                 }}
               >
-                <Text>X</Text>
+                <Text style={{ color: "#fff", fontWeight: "bold" }}>x</Text>
               </TouchableOpacity>
             </View>
           )}

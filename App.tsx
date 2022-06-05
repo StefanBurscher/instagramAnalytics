@@ -18,9 +18,9 @@ const theme = createTheme({
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const contextValues = useContextApi();
-
+  
   const colorScheme = useColorScheme();
-
+  
   if (!isLoadingComplete) {
     return null;
   } else {

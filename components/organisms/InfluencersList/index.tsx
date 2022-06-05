@@ -7,6 +7,7 @@ import { View } from "../../Themed";
 import ListGroup from "../ListGroup";
 import ProfileList from "../ProfileList";
 import MainContext from "../../../context/main-context";
+import Dropdown from "../../atoms/Dropdown";
 // import { Button } from "@rneui/themed";
 
 export default function InfluencersList() {
@@ -56,10 +57,13 @@ export default function InfluencersList() {
   return (
     <View style={styles.container}>
       {/* <Button onPress={logIn} title="Asd" /> */}
-      <ListGroup
-        allGroups={allGroups}
-        setActiveGroupIndex={setActiveGroupIndex}
-        activeGroupIndex={activeGroupIndex}
+
+      <Dropdown
+        items={allGroups}
+        selectedIndex={activeGroupIndex}
+        onChange={(item, itemIndex) => {
+          setActiveGroupIndex(itemIndex);
+        }}
       />
 
       <ProfileList items={selectedGroupItems} />

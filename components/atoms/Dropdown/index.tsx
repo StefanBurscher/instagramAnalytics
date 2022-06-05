@@ -2,6 +2,7 @@ import { TouchableOpacity } from "react-native";
 
 import { Text, View } from "../../Themed";
 import React, { useState } from "react";
+import Colors from "../../../constants/Colors";
 
 export default function Dropdown({ items, selectedIndex, onChange }) {
   const [open, setOpen] = useState(false);
@@ -9,6 +10,7 @@ export default function Dropdown({ items, selectedIndex, onChange }) {
   return (
     <View style={{ borderWidth: 1, padding: 5 }}>
       <TouchableOpacity
+        style={{ padding: 10 }}
         onPress={() => {
           setOpen(!open);
         }}
@@ -20,20 +22,20 @@ export default function Dropdown({ items, selectedIndex, onChange }) {
         <View
           style={{
             borderWidth: 1,
-            backgroundColor: "yellow",
-            position: "relative",
-            top: 0,
-            zIndex: 100,
+            backgroundColor: Colors.light.tint,
+            // position: "absolute",
+            zIndex: 10,
           }}
         >
           {items.map((item, index) => (
             <TouchableOpacity
+              style={{ padding: 10, borderBottomWidth: 1, borderColor: "#fff" }}
               key={`${index}-${item.name}`}
               onPress={() => {
                 onChange(item, index);
               }}
             >
-              <Text>{item.name}</Text>
+              <Text style={{ color: "#fff" }}>{item.name}</Text>
             </TouchableOpacity>
           ))}
         </View>

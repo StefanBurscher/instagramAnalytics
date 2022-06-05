@@ -1,3 +1,6 @@
+// export const initialRouteName = "CommentsTab";
+export const initialRouteName = "CompetitorsTab";
+
 export const initialContextState = {
   groups: {
     data: [],
@@ -7,6 +10,9 @@ export const initialContextState = {
     data: [],
     indexes: [],
   },
+  comments: {
+    data: []
+  }
 }
 
 
@@ -15,13 +21,13 @@ export const initialGroupsState = [
   { id: 2, name: "Travel srbija", items: [] },
 ];
 
-export const initialGroupIndexState = 1
+export const initialGroupIndexState = 0
 
 
 export const initialHashtagCategoriesState = [
   {
     name: "Traveling",
-    items: [{ hashtag: "travel" }, { hashtag: "travelblogger" }],
+    items: [{ "name": "Traveling", "items": [{ "hashtag": "travel" }, { "hashtag": "travelblogger" }, { "hashtag": "travellife" }, { "hashtag": "travelbug" }, { "hashtag": "traveler" }, { "hashtag": "travelers" }, { "hashtag": "traveldiary" }, { "hashtag": "travellingthroughtheworld" }, { "hashtag": "holiday" }, { "hashtag": "holidayinthesun" }] }, { "name": "Blogging", "items": [{ "hashtag": "blog" }, { "hashtag": "fasion" }] }],
   },
   {
     name: "Blogging",
@@ -30,3 +36,8 @@ export const initialHashtagCategoriesState = [
 ];
 
 export const initialHashtagIndexState = 0
+
+export const initialCommentsState = {
+  count: 0,
+  lastClearTimestamp: ""
+}

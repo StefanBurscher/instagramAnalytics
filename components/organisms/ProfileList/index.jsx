@@ -33,5 +33,6 @@ export default function ProfileList({ items }) {
 const styles = StyleSheet.create({
   list: {
     width: "100%",
+    zIndex: 1,
   },
 });

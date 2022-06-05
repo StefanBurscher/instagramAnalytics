@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import localstorage from '../utils/localstorage';
 
-export default function useContextState(initialState, initialIndex, localstorageKey) {
+export default function useContextState(localstorageKey, initialState, initialIndex = undefined) {
     const [stateValue, setStateValue] = useState(initialState);
     const [stateIndex, setStateIndex] = useState(initialIndex);
 
@@ -37,9 +37,14 @@ export default function useContextState(initialState, initialIndex, localstorage
         loadResourcesAndDataAsync();
     }, []);
 
-    return {
-        data: [stateValue, setAllValues],
-        indexes: [stateIndex, setStateIndex]
+    const state = {
+        data: [stateValue, setAllValues]
     };
+
+    if (typeof initialIndex !== "undefined") {
+        state.indexes = [stateIndex, setStateIndex]
+    }
+
+    return state
 }
 

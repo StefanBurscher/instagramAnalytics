@@ -1,19 +1,28 @@
-import { initialGroupIndexState, initialGroupsState, initialHashtagCategoriesState, initialHashtagIndexState } from '../constants/initialState';
+import { initialCommentsState, initialGroupIndexState, initialGroupsState, initialHashtagCategoriesState, initialHashtagIndexState } from '../constants/initialState';
 import useContextState from './useContextStateType';
 
 export default function useContextApi() {
     const groupContext = useContextState(
+        "all-groups",
         initialGroupsState,
         initialGroupIndexState,
-        "all-groups"
     );
 
     const hashtagContext = useContextState(
+        "all-hashtag-categories",
         initialHashtagCategoriesState,
         initialHashtagIndexState,
-        "all-hashtag-categories"
     );
 
-    return { groups: groupContext, hashtags: hashtagContext };
+    const commentsContext = useContextState(
+        "comments",
+        initialCommentsState,
+    );
+
+    return {
+        groups: groupContext,
+        hashtags: hashtagContext,
+        comments: commentsContext
+    };
 }
 
