@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
-import { Image, Platform, StyleSheet, TouchableOpacity } from "react-native";
-import * as Linking from "expo-linking";
+import React from "react";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
 import { Text, View } from "../../Themed";
 import Colors from "../../../constants/Colors";
-import MainContext from "../../../context/main-context";
 import { InstagramUser } from "../../../interfaces/instagramUser";
 import { openURL } from "../../../utils/links";
 
@@ -17,7 +15,7 @@ export default function ProfileListItem({
   setActiveGroupIndex,
 }) {
   const openProfile = () => {
-    const url = `https://instagram.com/${item.username}`;
+    const url = `instagram://user?username=${item.username}`;
     openURL(url);
   };
 

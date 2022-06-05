@@ -18,7 +18,10 @@ export default function HashtagsList() {
   } = useContext(MainContext);
 
   const openHashtag = (hashtag) => {
-    openURL(`https://www.instagram.com/explore/tags/${hashtag}/`);
+    
+    // const url = `instagram://explore/tags?tag=${hashtag}`;
+    const url = `https://www.instagram.com/explore/tags/${hashtag}`
+    openURL(url);
   };
 
   const addHashtag = () => {
