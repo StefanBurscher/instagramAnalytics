@@ -32,13 +32,18 @@ const setContextData = (key, callback, value) => {
   callback(value);
 };
 
-const clearStorage = async () => {
-  await AsyncStorage.clear();
+const clear = async () => {
+  try {
+    await AsyncStorage.clear();
+  } catch (e) {
+    console.log("🚀 ~ file: localstorage.js ~ line 8 ~ storeData ~ e", e);
+    // saving error
+  }
 };
 
 export default {
   storeData,
   getData,
   setContextData,
-  clearStorage,
+  clear,
 };

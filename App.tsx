@@ -8,6 +8,8 @@ import Navigation from "./navigation";
 import { ThemeProvider, createTheme } from "@rneui/themed";
 import MainContext from "./context/main-context";
 import useContextApi from "./hooks/useContextApi";
+import { useEffect } from "react";
+import localstorage from "./utils/localstorage";
 
 const theme = createTheme({
   Button: {
@@ -19,7 +21,14 @@ export default function App() {
   const isLoadingComplete = useCachedResources();
   const contextValues = useContextApi();
 
+
   const colorScheme = useColorScheme();
+
+  // Used for clearing storage!
+  // const contextValues = {}
+  // useEffect(() => {
+  //   localstorage.clear();
+  // }, []);
 
   if (!isLoadingComplete) {
     return null;
