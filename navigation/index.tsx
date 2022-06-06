@@ -27,6 +27,7 @@ import {
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { initialRouteName } from "../constants/initialState";
+import ChecklistTabScreen from "../components/screens/ChecklistTabScreen";
 
 export default function Navigation({
   colorScheme,
@@ -111,6 +112,14 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
+        name="ChecklistTab"
+        component={ChecklistTabScreen}
+        options={{
+          title: "Checklist",
+          tabBarIcon: ({ color }) => <TabBarIcon name="check-circle" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
         name="CommentsTab"
         component={CommentsTabScreen}
         options={{
@@ -118,14 +127,6 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="comment" color={color} />
           ),
-        }}
-      />
-      <BottomTab.Screen
-        name="SettingsTab"
-        component={CommentsTabScreen}
-        options={{
-          title: "Settings",
-          tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
         }}
       />
     </BottomTab.Navigator>

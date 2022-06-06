@@ -1,5 +1,6 @@
 // export const initialRouteName = "CommentsTab";
-export const initialRouteName = "CompetitorsTab";
+export const initialRouteName = "ChecklistTab";
+// export const initialRouteName = "CompetitorsTab";
 
 export const initialContextState = {
   groups: {
@@ -11,6 +12,9 @@ export const initialContextState = {
     indexes: [],
   },
   comments: {
+    data: []
+  },
+  checklist: {
     data: []
   }
 }
@@ -41,3 +45,31 @@ export const initialCommentsState = {
   count: 0,
   lastClearTimestamp: ""
 }
+
+export const initialChecklistArray = [
+  { name: "replyToStory", title: "Reply to at least 5 of your followers stories", defaultValue: false, },
+  { name: "commentsOnHashtags", title: "Engage with at least 10-15 posts relevant to your niche", defaultValue: false, }, // Engage with hashtags related to your niche
+  { name: "commentsOnCompetitors", title: "Leave a high value comment on 5 of your competitors posts", defaultValue: false, },
+  { name: "dailyStory", title: "Show up in your stories or on your feed", defaultValue: false, },
+  { name: "followNewLeads", title: "Find 2-5 bew people to connect with", defaultValue: false, },
+]
+
+
+export const getInitialChecklistFlags = () => {
+  const flags = {}
+  Object.values(initialChecklistArray).forEach(checklist => {
+    flags[checklist.name] = checklist.defaultValue
+  });
+
+  return flags
+}
+
+
+export const getInitialChecklistState = () => {
+  return ({
+    flags: getInitialChecklistFlags(),
+    daysStrike: 0,
+    lastClearTimestamp: ""
+  })
+}
+

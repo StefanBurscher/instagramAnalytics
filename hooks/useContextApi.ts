@@ -1,4 +1,4 @@
-import { initialCommentsState, initialGroupIndexState, initialGroupsState, initialHashtagCategoriesState, initialHashtagIndexState } from '../constants/initialState';
+import { getInitialChecklistState, initialCommentsState, initialGroupIndexState, initialGroupsState, initialHashtagCategoriesState, initialHashtagIndexState } from '../constants/initialState';
 import useContextState from './useContextStateType';
 
 export default function useContextApi() {
@@ -19,10 +19,16 @@ export default function useContextApi() {
         initialCommentsState,
     );
 
+    const checklistContext = useContextState(
+        "checklist",
+        getInitialChecklistState(),
+    );
+
     return {
         groups: groupContext,
         hashtags: hashtagContext,
-        comments: commentsContext
+        comments: commentsContext,
+        checklist: checklistContext
     };
 }
 

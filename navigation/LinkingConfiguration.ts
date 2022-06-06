@@ -20,6 +20,11 @@ const linking: LinkingOptions<RootStackParamList> = {
               CompetitorsTabScreen: 'CompetitorsTab',
             },
           },
+          ChecklistTab: {
+            screens: {
+              ChecklistTabScreen: 'ChecklistTab',
+            },
+          },
           CommentsTab: {
             screens: {
               CommentsTabScreen: 'CommentsTab',
