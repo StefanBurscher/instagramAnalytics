@@ -61,70 +61,67 @@ export default function HashtagsList() {
   };
 
   return (
-    <View>
-      <Text>Hastags</Text>
-      <View>
-        <FlatList
-          keyExtractor={(_, index) => index}
-          // style={styles.list}
-          data={hashtagCategories[selectedCategoryIndex].items}
-          renderItem={({ item: { hashtag }, index }) => (
-            <View
+    <View style={styles.container}>
+      <FlatList
+        keyExtractor={(_, index) => index}
+        // style={styles.list}
+        data={hashtagCategories[selectedCategoryIndex].items}
+        renderItem={({ item: { hashtag }, index }) => (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginVertical: 5,
+            }}
+          >
+            <TouchableOpacity
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginVertical: 5,
+                flex: 1,
+              }}
+              onPress={() => {
+                openHashtag(hashtag);
               }}
             >
-              <TouchableOpacity
+              <Text
                 style={{
+                  backgroundColor: Colors.light.tint,
+                  padding: 10,
+                  marginRight: 10,
                   flex: 1,
                 }}
-                onPress={() => {
-                  openHashtag(hashtag);
-                }}
               >
-                <Text
-                  style={{
-                    backgroundColor: Colors.light.tint,
-                    padding: 10,
-                    marginRight: 10,
-                    flex: 1,
-                  }}
-                >
-                  #{hashtag}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "red",
-                  padding: 10,
-                }}
-                onPress={() => {
-                  deleteHashtag(index);
-                }}
-              >
-                <Text style={{ color: "#fff", fontWeight: "bold" }}>x</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <Input
-              style={styles.input}
-              value={inputValue}
-              onChangeText={setInputValue}
-              placeholder="Enter hashtag"
-              inputStyle={{ color: "blue" }}
-            />
+                #{hashtag}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "red",
+                padding: 10,
+              }}
+              onPress={() => {
+                deleteHashtag(index);
+              }}
+            >
+              <Text style={{ color: "#fff", fontWeight: "bold" }}>x</Text>
+            </TouchableOpacity>
           </View>
-          <Button title="Add" onPress={addHashtag} />
+        )}
+      />
+      <View
+        style={{
+          flexDirection: "row",
+        }}
+      >
+        <View style={{ flex: 1 }}>
+          <Input
+            style={styles.input}
+            value={inputValue}
+            onChangeText={setInputValue}
+            placeholder="Enter hashtag"
+            inputStyle={{ color: "blue" }}
+          />
         </View>
+        <Button title="Add" onPress={addHashtag} />
       </View>
     </View>
   );
@@ -133,8 +130,8 @@ export default function HashtagsList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   title: {
     fontSize: 20,

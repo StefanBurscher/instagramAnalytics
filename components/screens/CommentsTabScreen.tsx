@@ -1,33 +1,69 @@
-import { View } from "../Themed";
+import { Text, View } from "../Themed";
 import RegularLayout from "../layouts/RegularLayout";
 import React, { useContext } from "react";
 import MainContext from "../../context/main-context";
 import HashtagsList from "../organisms/HashtagsList";
 import Dropdown from "../atoms/Dropdown";
 import CommentsCounter from "../organisms/CommentsCounter";
+import FlatList from "../organisms/FlatList";
+import { openURL } from "../../utils/links";
+import Colors from "../../constants/Colors";
+import { StyleSheet } from "react-native";
 
 export default function CommentsTabScreen() {
   const {
     hashtags: {
-      data: [hashtagCategories],
-      indexes: [selectedCategoryIndex, setSelectedCategoryIndex],
+      data: [hashtagCategories, setHashtagCategories],
+      indexes: [activeCategoryIndex, setActiveCategoryIndex],
     },
   } = useContext(MainContext);
 
+  const openHashtag = ({ hashtag }) => {
+    // const url = `instagram://explore/tags?tag=${hashtag}`;
+    const url = `https://www.instagram.com/explore/tags/${hashtag}`;
+    openURL(url);
+  };
+
+  const deleteHashtag = (hashtagIndex) => {
+    const newCategories = hashtagCategories.map((state, index) => {
+      if (index === selectedCategoryIndex) {
+        return {
+          ...state,
+          items: state.items.filter(
+            (_, itemIndex) => itemIndex !== hashtagIndex
+          ),
+        };
+      }
+
+      return state;
+    });
+
+    setHashtagCategories(newCategories);
+  };
+
   return (
     <RegularLayout>
-      <View>
+      <View style={{ flex: 1 }}>
         <CommentsCounter />
 
-        <Dropdown
+        <FlatList
           items={hashtagCategories}
-          selectedIndex={selectedCategoryIndex}
-          onChange={(item, itemIndex) => {
-            setSelectedCategoryIndex(itemIndex);
+          activeItemIndex={activeCategoryIndex}
+          setActiveItemIndex={setActiveCategoryIndex}
+          itemRenderer={({ item: { hashtag } }) => {
+            return <Text style={styles.rendered}>#{hashtag}</Text>;
           }}
+          onPress={openHashtag}
+          onDelete={deleteHashtag}
         />
-        <HashtagsList />
       </View>
     </RegularLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  rendered: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+});

@@ -7,9 +7,11 @@ import { Text, View } from "../../Themed";
 import axios from "axios";
 import { InstagramUser } from "../../../interfaces/instagramUser";
 import Input from "../../atoms/Input";
+import { getDimensions } from "../../../utils/layout";
 
-export default function AddProfile({ addToGroup }) {
+export default function AddProfile({ addToGroup, addGroup }) {
   const [inputValue, setInputValue] = useState("");
+  const [inputValue1, setInputValue1] = useState("");
   const [instagramHtml, setInstagramHtml] = useState();
   const [instagramURL, setinstagramURL] = useState();
 
@@ -32,7 +34,7 @@ export default function AddProfile({ addToGroup }) {
     }
   };
 
-  const addToList = async () => {
+  const addProfileToList = async () => {
     const splittedValue = inputValue.split("instagram.com/");
     const newValue = splittedValue.length > 1 ? splittedValue[1] : inputValue;
 
@@ -44,24 +46,43 @@ export default function AddProfile({ addToGroup }) {
     addToGroup({ ...userData });
   };
 
+  const addToList = async () => {
+    setInputValue1("");
+    addGroup({
+      name: inputValue1,
+      items: [],
+    });
+  };
+
   return (
-    <View style={styles.addProfileView}>
-      <Input
-        value={inputValue}
-        onChangeText={setInputValue}
-        placeholder="Enter Instagram username or profile URL"
-      />
+    <View>
+      <View style={styles.addProfileView}>
+        <Input
+          value={inputValue}
+          onChangeText={setInputValue}
+          placeholder="Enter Instagram username or profile URL"
+        />
 
-      <Button raised title="Add" onPress={addToList} />
+        <Button raised title="Add" onPress={addProfileToList} />
+      </View>
 
-      <View
+      <View style={styles.addProfileView}>
+        <Input
+          value={inputValue1}
+          onChangeText={setInputValue1}
+          placeholder="Enter new group name"
+        />
+
+        <Button raised title="Add" onPress={addToList} />
+      </View>
+
+      {/* <View
         style={{
-          backgroundColor: "yellow",
-          height: 300,
-          width: 500,
+          width: getDimensions().screen.width - 22,
+          height: 500,
         }}
       >
-        {/* {instagramHtml && (
+        {instagramHtml && (
           <WebView
             style={styles.webView}
             originWhitelist={["*"]}
@@ -75,8 +96,8 @@ export default function AddProfile({ addToGroup }) {
             originWhitelist={["*"]}
             source={{ uri: instagramURL }}
           />
-        )} */}
-      </View>
+        )}
+      </View> */}
     </View>
   );
 }
@@ -88,6 +109,7 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     marginBottom: 10,
     width: "100%",
+    marginBottom: 40,
   },
   input: {},
   webView: {

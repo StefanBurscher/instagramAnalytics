@@ -32,8 +32,13 @@ const setContextData = (key, callback, value) => {
   callback(value);
 };
 
+const clearStorage = async () => {
+  await AsyncStorage.clear();
+};
+
 export default {
   storeData,
   getData,
   setContextData,
+  clearStorage,
 };

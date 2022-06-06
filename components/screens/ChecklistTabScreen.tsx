@@ -3,9 +3,6 @@ import RegularLayout from "../layouts/RegularLayout";
 import Checkbox from "expo-checkbox";
 import React, { useContext } from "react";
 import MainContext from "../../context/main-context";
-import HashtagsList from "../organisms/HashtagsList";
-import Dropdown from "../atoms/Dropdown";
-import CommentsCounter from "../organisms/CommentsCounter";
 import ProgressBar from "../atoms/ProgressBar";
 import {
   getInitialChecklistFlags,
@@ -55,6 +52,7 @@ export default function ChecklistTabScreen() {
         />
         {initialChecklistArray.map((checklist) => (
           <View
+            key={checklist.name}
             style={{
               flexDirection: "row",
               marginVertical: 5,

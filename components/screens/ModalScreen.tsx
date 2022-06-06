@@ -17,7 +17,7 @@ export default function ModalScreen({ navigation }) {
     },
   } = useContext(MainContext);
 
-  const addToGroup = (newItem) => {
+  const addProfileToGroup = (newItem) => {
     setAllGroups(
       allGroups.map((group, index) => {
         if (index === activeGroupIndex) {
@@ -33,10 +33,16 @@ export default function ModalScreen({ navigation }) {
     navigation.goBack();
   };
 
+  const addGroup = (newGroup) => {
+    setAllGroups([...allGroups, newGroup]);
+
+    navigation.goBack();
+  };
+
   return (
     <RegularLayout>
       <View style={styles.container}>
-        <AddProfile addToGroup={addToGroup} />
+        <AddProfile addToGroup={addProfileToGroup} addGroup={addGroup} />
 
         {/* Use a light status bar on iOS to account for the black space above the modal */}
         <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
