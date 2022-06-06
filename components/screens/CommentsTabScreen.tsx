@@ -24,23 +24,6 @@ export default function CommentsTabScreen() {
     openURL(url);
   };
 
-  const deleteHashtag = (hashtagIndex) => {
-    const newCategories = hashtagCategories.map((state, index) => {
-      if (index === selectedCategoryIndex) {
-        return {
-          ...state,
-          items: state.items.filter(
-            (_, itemIndex) => itemIndex !== hashtagIndex
-          ),
-        };
-      }
-
-      return state;
-    });
-
-    setHashtagCategories(newCategories);
-  };
-
   return (
     <RegularLayout>
       <View style={{ flex: 1 }}>
@@ -48,13 +31,16 @@ export default function CommentsTabScreen() {
 
         <FlatList
           items={hashtagCategories}
+          setItems={setHashtagCategories}
           activeItemIndex={activeCategoryIndex}
           setActiveItemIndex={setActiveCategoryIndex}
           itemRenderer={({ item: { hashtag } }) => {
             return <Text style={styles.rendered}>#{hashtag}</Text>;
           }}
           onPress={openHashtag}
-          onDelete={deleteHashtag}
+          addItem={(value, callback) => {
+            callback({ hashtag: value });
+          }}
         />
       </View>
     </RegularLayout>

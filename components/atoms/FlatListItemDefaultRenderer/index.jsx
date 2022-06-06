@@ -22,7 +22,7 @@ export default function FlatListItemDefaultRenderer({
         style={styles.item}
         onPress={() => {
           if (onPress) {
-            onPress(item);
+            onPress(item, index);
           }
         }}
       >
@@ -30,7 +30,12 @@ export default function FlatListItemDefaultRenderer({
       </TouchableOpacity>
 
       {!!onDelete && (
-        <TouchableOpacity style={styles.deleteItem} onPress={onDelete}>
+        <TouchableOpacity
+          style={styles.deleteItem}
+          onPress={() => {
+            onDelete(item, index);
+          }}
+        >
           <FontAwesome color="#fff" size={20} name="trash" />
         </TouchableOpacity>
       )}

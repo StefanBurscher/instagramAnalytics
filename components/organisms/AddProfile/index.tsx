@@ -26,7 +26,7 @@ export default function AddProfile({ addToGroup, addGroup }) {
     } else {
       const user: InstagramUser = res.data?.users[0]?.user;
       if (user) {
-        console.log("Uspeo!".user);
+        console.log("Uspeo!", user);
         return user;
       } else {
         console.log("Uspeo! Nema korisnika");
