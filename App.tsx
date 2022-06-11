@@ -8,8 +8,17 @@ import Navigation from "./navigation";
 import { ThemeProvider, createTheme } from "@rneui/themed";
 import MainContext from "./context/main-context";
 import useContextApi from "./hooks/useContextApi";
-import { useEffect } from "react";
-import localstorage from "./utils/localstorage";
+import usePushNotifications from "./hooks/notification";
+import * as Notifications from "expo-notifications";
+import React from "react";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 const theme = createTheme({
   Button: {
@@ -20,8 +29,6 @@ const theme = createTheme({
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const contextValues = useContextApi();
-
-
   const colorScheme = useColorScheme();
 
   // Used for clearing storage!

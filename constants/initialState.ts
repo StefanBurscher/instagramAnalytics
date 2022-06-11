@@ -16,7 +16,8 @@ export const initialContextState = {
   },
   checklist: {
     data: []
-  }
+  },
+  notificationToken: ""
 }
 
 

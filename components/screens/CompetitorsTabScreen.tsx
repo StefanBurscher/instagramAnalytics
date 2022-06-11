@@ -11,6 +11,7 @@ import { InstagramUser } from "../../interfaces/instagramUser";
 import axios from "axios";
 import { RootTabScreenProps } from "../../types";
 import RegularLayout from "../layouts/RegularLayout";
+import { sendPushNotification } from "../../utils/notification";
 
 export default function CompetitorsTabScreen({
   navigation,
@@ -20,11 +21,13 @@ export default function CompetitorsTabScreen({
       data: [allGroups, setAllGroups],
       indexes: [activeGroupIndex, setActiveGroupIndex],
     },
+    notificationToken,
   } = useContext(MainContext);
 
   const openProfile = (item) => {
-    const url = `https://www.instagram.com/${item.username}`;
-    openURL(url);
+    sendPushNotification(notificationToken, "AAA", item.username);
+    // const url = `https://www.instagram.com/${item.username}`;
+    // openURL(url);
   };
 
   const getUserData = async (username): Promise<InstagramUser> => {

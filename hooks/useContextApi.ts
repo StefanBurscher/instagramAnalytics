@@ -1,4 +1,5 @@
 import { getInitialChecklistState, initialCommentsState, initialGroupIndexState, initialGroupsState, initialHashtagCategoriesState, initialHashtagIndexState } from '../constants/initialState';
+import usePushNotifications from './notification';
 import useContextState from './useContextStateType';
 
 export default function useContextApi() {
@@ -24,11 +25,15 @@ export default function useContextApi() {
         getInitialChecklistState(),
     );
 
+
+    const notificationToken = usePushNotifications();
+
     return {
         groups: groupContext,
         hashtags: hashtagContext,
         comments: commentsContext,
-        checklist: checklistContext
+        checklist: checklistContext,
+        notificationToken
     };
 }
 

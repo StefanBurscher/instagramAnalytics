@@ -3,11 +3,10 @@ import React from "react";
 import { useContext } from "react";
 import { Platform, StyleSheet } from "react-native";
 import MainContext from "../../context/main-context";
-import localstorage from "../../utils/localstorage";
 import RegularLayout from "../layouts/RegularLayout";
 
 import AddProfile from "../organisms/AddProfile";
-import { Text, View } from "../Themed";
+import { View } from "../Themed";
 
 export default function ModalScreen({ navigation }) {
   const {
