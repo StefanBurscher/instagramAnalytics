@@ -1,5 +1,5 @@
-export const initialRouteName = "CompetitorsTab";
-// export const initialRouteName = "ChecklistTab";
+// export const initialRouteName = "CompetitorsTab";
+export const initialRouteName = "ChecklistTab";
 // export const initialRouteName = "CommentsTab";
 
 export const initialContextState = {

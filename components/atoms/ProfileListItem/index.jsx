@@ -3,6 +3,7 @@ import { Image, StyleSheet } from "react-native";
 
 import { Text, View } from "../../Themed";
 import { InstagramUser } from "../../../interfaces/instagramUser";
+import Layout from "../../../constants/Layout";
 
 export default function ProfileListItem({ item }) {
   const user: InstagramUser = item;
@@ -29,13 +30,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   infos: {
-    marginLeft: 20,
+    marginLeft: 10,
     backgroundColor: "trasparent",
+    justifyContent: "space-evenly",
   },
   profilePicture: {
-    width: 30,
-    height: 30,
-    backgroundColor: "#fff",
-    borderRadius: 15,
+    width: Layout.listItemSize,
+    height: Layout.listItemSize,
   },
 });

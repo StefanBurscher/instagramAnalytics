@@ -39,7 +39,7 @@ export default function ProgressBar({
   };
 
   return (
-    <View style={{ marginBottom: 10 }}>
+    <View style={{  }}>
       <ChecklistCounter
         maxValue={maxValue}
         currentValue={currentValue}

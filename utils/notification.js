@@ -24,7 +24,12 @@ export async function sendPushNotification(expoPushToken, title, body, data) {
 
 export async function registerForPushNotificationsAsync(setState) {
   let token;
-  if (Device.isDevice) {
+  console.log(
+    "🚀 ~ file: notification.js ~ line 28 ~ registerForPushNotificationsAsync ~ Device.isDevice)",
+    Device.isDevice,
+    Platform
+  );
+  if (Device.isDevice && Platform.OS !== "web") {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
@@ -41,7 +46,7 @@ export async function registerForPushNotificationsAsync(setState) {
 
     setState(token);
   } else {
-    alert("Must use physical device for Push Notifications");
+    // alert("Must use physical device for Push Notifications");
   }
 
   if (Platform.OS === "android") {

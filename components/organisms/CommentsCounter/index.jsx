@@ -31,7 +31,7 @@ export default function CommentsCounter() {
   };
 
   return (
-    <View>
+    <View style={{ backgroundColor: "transparent" }}>
       <ProgressBar
         currentValue={comments.count}
         maxValue={maxCommentsPerDay}

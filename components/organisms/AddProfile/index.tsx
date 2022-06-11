@@ -3,11 +3,10 @@ import { StyleSheet } from "react-native";
 import { Button } from "@rneui/themed";
 // import { WebView } from "react-native-webview";
 
-import { Text, View } from "../../Themed";
+import { View } from "../../Themed";
 import axios from "axios";
 import { InstagramUser } from "../../../interfaces/instagramUser";
 import Input from "../../atoms/Input";
-import { getDimensions } from "../../../utils/layout";
 
 export default function AddProfile({ addToGroup, addGroup }) {
   const [inputValue, setInputValue] = useState("");

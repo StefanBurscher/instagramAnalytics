@@ -1,10 +1,14 @@
-import { StyleSheet } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 
 import { Text, View } from "../../Themed";
 
 export default function RegularLayout({ navigation, title, children }) {
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+      keyboardVerticalOffset={80}
+    >
       {!!title && (
         <>
           <Text style={styles.title}>{title}</Text>
@@ -17,7 +21,7 @@ export default function RegularLayout({ navigation, title, children }) {
       )}
 
       {children}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

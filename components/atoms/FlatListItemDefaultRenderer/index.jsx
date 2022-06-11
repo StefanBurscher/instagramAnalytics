@@ -4,6 +4,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "../../Themed";
 import Colors from "../../../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
+import Layout from "../../../constants/Layout";
 
 export default function FlatListItemDefaultRenderer({
   item,
@@ -11,13 +12,21 @@ export default function FlatListItemDefaultRenderer({
   onPress,
   onDelete,
   itemRenderer = ({ item: { value } }) => (
-    <View style={{ backgroundColor: "trasparent" }}>
+    <View style={{ backgroundColor: "trasparent", alignItems: "center" }}>
       <Text style={{ color: "#fff" }}>{value}</Text>
     </View>
   ),
+  theme,
 }) {
   return (
-    <View style={{ flexDirection: "row", alignItems: "center", zIndex: 1 }}>
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        zIndex: 1,
+        backgroundColor: "transparent",
+      }}
+    >
       <TouchableOpacity
         style={styles.item}
         onPress={() => {
@@ -36,7 +45,11 @@ export default function FlatListItemDefaultRenderer({
             onDelete(item, index);
           }}
         >
-          <FontAwesome color="#fff" size={20} name="trash" />
+          <FontAwesome
+            color={Colors[theme].background}
+            size={20}
+            name="trash"
+          />
         </TouchableOpacity>
       )}
     </View>
@@ -46,14 +59,11 @@ export default function FlatListItemDefaultRenderer({
 const styles = StyleSheet.create({
   // profile item
   item: {
-    height: 50,
-    backgroundColor: Colors.light.tint,
-    paddingHorizontal: 10,
-    marginVertical: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
     flex: 1,
+    height: Layout.listItemSize,
+    backgroundColor: Colors.light.tint,
+    marginVertical: 5,
+    flexDirection: "row",
     marginRight: 5,
   },
   deleteItem: {
@@ -61,6 +71,6 @@ const styles = StyleSheet.create({
     width: 40,
     alignItems: "center",
     justifyContent: "center",
-    height: 50,
+    height: Layout.listItemSize,
   },
 });

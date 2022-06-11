@@ -8,6 +8,9 @@ import {
   getInitialChecklistFlags,
   initialChecklistArray,
 } from "../../constants/initialState";
+import { TouchableOpacity } from "react-native";
+import useColorScheme from "../../hooks/useColorScheme";
+import Colors from "../../constants/Colors";
 
 export default function ChecklistTabScreen() {
   const {
@@ -15,6 +18,7 @@ export default function ChecklistTabScreen() {
       data: [checklistData, changeChecklist],
     },
   } = useContext(MainContext);
+  const theme = useColorScheme()
 
   const { flags, daysStrike, lastClearTimestamp } = checklistData;
 
@@ -42,7 +46,9 @@ export default function ChecklistTabScreen() {
 
   return (
     <RegularLayout>
-      <View>
+      <View style={{
+        backgroundColor: "transparent",
+      }}>
         <ProgressBar
           currentValue={finishedTasks}
           maxValue={5}
@@ -50,13 +56,22 @@ export default function ChecklistTabScreen() {
           lastClearTimestamp={lastClearTimestamp}
           daysStrike={daysStrike}
         />
+
         {initialChecklistArray.map((checklist) => (
-          <View
+          <TouchableOpacity
             key={checklist.name}
             style={{
               flexDirection: "row",
-              marginVertical: 5,
               alignItems: "center",
+              backgroundColor: "transparent",
+              paddingVertical: 10,
+              marginBottom: 10,
+              borderBottomWidth: 1,
+              borderColor: Colors[theme].text,
+              // borderColor: "#fff"
+            }}
+            onPress={() => {
+              changeFlag(checklist.name);
             }}
           >
             <Checkbox
@@ -67,7 +82,7 @@ export default function ChecklistTabScreen() {
               }}
             />
             <Text style={{ fontWeight: "bold" }}>{checklist.title}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
     </RegularLayout>

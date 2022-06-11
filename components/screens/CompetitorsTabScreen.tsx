@@ -25,9 +25,8 @@ export default function CompetitorsTabScreen({
   } = useContext(MainContext);
 
   const openProfile = (item) => {
-    sendPushNotification(notificationToken, "AAA", item.username);
-    // const url = `https://www.instagram.com/${item.username}`;
-    // openURL(url);
+    const url = `https://www.instagram.com/${item.username}`;
+    openURL(url);
   };
 
   const getUserData = async (username): Promise<InstagramUser> => {
@@ -77,5 +76,6 @@ export default function CompetitorsTabScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "transparent"
   },
 });

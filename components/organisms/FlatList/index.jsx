@@ -10,8 +10,8 @@ import { Text, View } from "../../Themed";
 import Dropdown from "../../atoms/Dropdown";
 import FlatListItemDefaultRenderer from "../../atoms/FlatListItemDefaultRenderer";
 import Input from "../../atoms/Input";
-import { Button } from "@rneui/themed";
 import Colors from "../../../constants/Colors";
+import useColorScheme from "../../../hooks/useColorScheme";
 
 export default function FlatList({
   items,
@@ -27,6 +27,7 @@ export default function FlatList({
   noDelete,
 }) {
   const [inputValue, setInputValue] = useState("");
+  const theme = useColorScheme();
 
   const activeCategoryItems = (items || {})[activeItemIndex]?.items;
 
@@ -84,6 +85,7 @@ export default function FlatList({
             onPress,
             onDelete: noDelete ? undefined : deleteItem,
             itemRenderer,
+            theme,
           })
         }
       />
@@ -112,10 +114,12 @@ export default function FlatList({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "transparent",
   },
   list: {
     width: "100%",
     zIndex: 1,
+    backgroundColor: "transparent",
   },
   addItem: {
     flexDirection: "row",

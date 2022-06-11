@@ -2,12 +2,9 @@ import { Text, View } from "../Themed";
 import RegularLayout from "../layouts/RegularLayout";
 import React, { useContext } from "react";
 import MainContext from "../../context/main-context";
-import HashtagsList from "../organisms/HashtagsList";
-import Dropdown from "../atoms/Dropdown";
 import CommentsCounter from "../organisms/CommentsCounter";
 import FlatList from "../organisms/FlatList";
 import { openURL } from "../../utils/links";
-import Colors from "../../constants/Colors";
 import { StyleSheet } from "react-native";
 
 export default function CommentsTabScreen() {
@@ -26,7 +23,10 @@ export default function CommentsTabScreen() {
 
   return (
     <RegularLayout>
-      <View style={{ flex: 1 }}>
+      <View style={{
+        flex: 1,
+        backgroundColor: "transparent"
+      }}>
         <CommentsCounter />
 
         <FlatList
@@ -51,5 +51,7 @@ const styles = StyleSheet.create({
   rendered: {
     color: "#fff",
     fontWeight: "bold",
+    alignSelf: "center",
+    marginLeft: 10
   },
 });

@@ -8,7 +8,6 @@ import Navigation from "./navigation";
 import { ThemeProvider, createTheme } from "@rneui/themed";
 import MainContext from "./context/main-context";
 import useContextApi from "./hooks/useContextApi";
-import usePushNotifications from "./hooks/notification";
 import * as Notifications from "expo-notifications";
 import React from "react";
 

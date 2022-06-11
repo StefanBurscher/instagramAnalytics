@@ -3,12 +3,14 @@ import { TouchableOpacity } from "react-native";
 import { Text, View } from "../../Themed";
 import React, { useState } from "react";
 import Colors from "../../../constants/Colors";
+import useColorScheme from "../../../hooks/useColorScheme";
 
 export default function Dropdown({ items, selectedIndex, onChange }) {
   const [open, setOpen] = useState(false);
+  const theme = useColorScheme();
 
   return (
-    <View style={{ borderWidth: 1, padding: 5 }}>
+    <View style={{ borderWidth: 1, padding: 5, borderColor: Colors[theme].text, }}>
       <TouchableOpacity
         style={{ padding: 10 }}
         onPress={() => {
